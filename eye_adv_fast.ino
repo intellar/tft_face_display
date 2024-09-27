@@ -53,6 +53,16 @@ void eye_reset()
 #define FACE2_SM_HEIGHT 64
 #define FACE2_SM_WIDTH 70
 
+
+//int draw_delay = 10;
+
+void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color)
+{
+  //delay(draw_delay);  
+  tft.drawFastHLine(x,y,w,color);
+}
+
+
 void drawFilledInscribedEllipse(int x_center, int y_center, int a0, int b0, int a1, int b1, uint16_t color_ellipse_0, uint16_t color_ellipse_1 , bool fill_ellipse0, int second_ellipse_offset = -1, int happy_eye_offset = -1 ) 
 {
 
@@ -92,10 +102,10 @@ void drawFilledInscribedEllipse(int x_center, int y_center, int a0, int b0, int 
         float sqrt_disc = sqrt(disc1);
         float x1 = x_center + a1 * sqrt_disc;
         float x2 = x_center - a1 * sqrt_disc;
-        tft.drawFastHLine(x2, y, x1 - x2, color_ellipse_1);
+        drawFastHLine(x2, y, x1 - x2+1, color_ellipse_1);
         if(second_ellipse_offset>0)
         {
-          tft.drawFastHLine(x2+second_ellipse_offset, y, x1 - x2, color_ellipse_1);
+          drawFastHLine(x2+second_ellipse_offset, y, x1 - x2+1, color_ellipse_1);
         }
 
       }else
@@ -114,12 +124,12 @@ void drawFilledInscribedEllipse(int x_center, int y_center, int a0, int b0, int 
         float x_e1_1 = x_center + a1 * sqrt_disc1;
         
         //draw outter ellipse, the background ellipse
-        tft.drawFastHLine(x_e1_0, y, x_e0_0 - x_e1_0, color_ellipse_1);
-        tft.drawFastHLine(x_e0_1, y, x_e1_1 - x_e0_1, color_ellipse_1);
+        drawFastHLine(x_e1_0, y, x_e0_0 - x_e1_0+1, color_ellipse_1);
+        drawFastHLine(x_e0_1, y, x_e1_1 - x_e0_1+1, color_ellipse_1);
         if(second_ellipse_offset>0)
         {
-          tft.drawFastHLine(x_e1_0+second_ellipse_offset, y, x_e0_0 - x_e1_0, color_ellipse_1);
-          tft.drawFastHLine(x_e0_1+second_ellipse_offset, y, x_e1_1 - x_e0_1, color_ellipse_1);      
+          drawFastHLine(x_e1_0+second_ellipse_offset, y, x_e0_0 - x_e1_0+1, color_ellipse_1);
+          drawFastHLine(x_e0_1+second_ellipse_offset, y, x_e1_1 - x_e0_1+1, color_ellipse_1);      
         }
         
         if(fill_ellipse0)
@@ -128,10 +138,10 @@ void drawFilledInscribedEllipse(int x_center, int y_center, int a0, int b0, int 
           if(disc_he<=0)
           {
             //not in the HE ellipse, fill e0
-            tft.drawFastHLine(x_e0_0, y, x_e0_1 - x_e0_0, color_ellipse_0);
+            drawFastHLine(x_e0_0, y, x_e0_1 - x_e0_0+1, color_ellipse_0);
             if(second_ellipse_offset>0)
             {
-              tft.drawFastHLine(x_e0_0+second_ellipse_offset, y, x_e0_1 - x_e0_0, color_ellipse_0);
+              drawFastHLine(x_e0_0+second_ellipse_offset, y, x_e0_1 - x_e0_0+1, color_ellipse_0);
             }
           }else
           {
@@ -143,22 +153,22 @@ void drawFilledInscribedEllipse(int x_center, int y_center, int a0, int b0, int 
             if(x_e0_0<=x_eHE_0)
             {
               //up of the crossing of the ellipses
-              tft.drawFastHLine(x_e0_0, y, x_eHE_0 - x_e0_0, color_ellipse_0);//left portion inside e0 with color e0
-              tft.drawFastHLine(x_eHE_0, y, x_eHE_1 - x_eHE_0, color_ellipse_1);//center portion of the cutout
-              tft.drawFastHLine(x_eHE_1, y, x_e0_1 - x_eHE_1, color_ellipse_0);//right portion still inside the pupil
+              drawFastHLine(x_e0_0, y, x_eHE_0 - x_e0_0+1, color_ellipse_0);//left portion inside e0 with color e0
+              drawFastHLine(x_eHE_0, y, x_eHE_1 - x_eHE_0+1, color_ellipse_1);//center portion of the cutout
+              drawFastHLine(x_eHE_1, y, x_e0_1 - x_eHE_1+1, color_ellipse_0);//right portion still inside the pupil
               if(second_ellipse_offset>0)
               {
-                tft.drawFastHLine(x_e0_0+second_ellipse_offset, y, x_eHE_0 - x_e0_0, color_ellipse_0);//left portion inside e0 with color e0
-                tft.drawFastHLine(x_eHE_0+second_ellipse_offset, y, x_eHE_1 - x_eHE_0, color_ellipse_1);//center portion of the cutout  
-                tft.drawFastHLine(x_eHE_1+second_ellipse_offset, y, x_e0_1 - x_eHE_1, color_ellipse_0);//right portion still inside the pupil
+                drawFastHLine(x_e0_0+second_ellipse_offset, y, x_eHE_0 - x_e0_0+1, color_ellipse_0);//left portion inside e0 with color e0
+                drawFastHLine(x_eHE_0+second_ellipse_offset, y, x_eHE_1 - x_eHE_0+1, color_ellipse_1);//center portion of the cutout  
+                drawFastHLine(x_eHE_1+second_ellipse_offset, y, x_e0_1 - x_eHE_1+1, color_ellipse_0);//right portion still inside the pupil
               }
             }else
             {
               //bellow, draw only inside e0, with e1 color
-              tft.drawFastHLine(x_e0_0, y, x_e0_1 - x_e0_0+1, color_ellipse_1);
+              drawFastHLine(x_e0_0, y, x_e0_1 - x_e0_0+1, color_ellipse_1);
               if(second_ellipse_offset>0)
               {
-                tft.drawFastHLine(x_e0_0+second_ellipse_offset, y, x_e0_1 - x_e0_0+1, color_ellipse_1);
+                drawFastHLine(x_e0_0+second_ellipse_offset, y, x_e0_1 - x_e0_0+1, color_ellipse_1);
               }
             }          
           }
@@ -193,22 +203,22 @@ void drawFilledEllipseWithBackgroundBox(int x_center, int y_center, int a, int b
         float x2 = x_center - a * sqrt_disc;
 
         //inside ellipse, draw the rectangular background around ellipse
-        tft.drawFastHLine(x_start, y, x2-x_start, color_background);
-        tft.drawFastHLine(x1, y, x_end-x1, color_background);
+        drawFastHLine(x_start, y, x2-x_start, color_background);
+        drawFastHLine(x1, y, x_end-x1, color_background);
         if(second_ellipse_offset>0)
         {
           //draw second ellipse
-          tft.drawFastHLine(x_start+second_ellipse_offset, y, x2-x_start, color_background);
-          tft.drawFastHLine(x1+second_ellipse_offset, y, x_end-x1, color_background);        
+          drawFastHLine(x_start+second_ellipse_offset, y, x2-x_start, color_background);
+          drawFastHLine(x1+second_ellipse_offset, y, x_end-x1, color_background);        
         }
 
         if(draw_ellipse)
         {          
           //draw the actual ellipse
-          tft.drawFastHLine(x2, y, x1 - x2, color_ellipse);
+          drawFastHLine(x2, y, x1 - x2, color_ellipse);
           if(second_ellipse_offset>0)
           {
-            tft.drawFastHLine(x2+second_ellipse_offset, y, x1 - x2, color_ellipse);
+            drawFastHLine(x2+second_ellipse_offset, y, x1 - x2, color_ellipse);
           }
         
         }
@@ -216,10 +226,10 @@ void drawFilledEllipseWithBackgroundBox(int x_center, int y_center, int a, int b
     }else
     {
       //draw full
-      tft.drawFastHLine(x_start, y, w, color_background);
+      drawFastHLine(x_start, y, w, color_background);
       if(second_ellipse_offset>0)
       {
-        tft.drawFastHLine(x_start+second_ellipse_offset, y, w, color_background);
+        drawFastHLine(x_start+second_ellipse_offset, y, w, color_background);
       }
     }
 
@@ -236,16 +246,35 @@ void draw_eyes(int x, int y, int offset_second_eye, int offset_happy_eye)
   drawFilledInscribedEllipse(        x,y,0.5*eye_radius_x,0.5*eye_radius_y,0.7*eye_radius_x,  0.7*eye_radius_y,RGB(1,178,226),RGB(1,4,172),true,offset_second_eye, offset_happy_eye);
 }
 
+
+void fillEllipse(int16_t x_center, int16_t y_center, int16_t a0, int16_t b0, uint16_t color)
+{
+  for (int y = y_center - b0; y <= y_center + b0; y++) 
+  {
+    float y_ = y;
+    float disc0 = (1 - (y_ - y_center)*(y_ - y_center) / (b0*b0));
+    
+    if (disc0 >= 0) 
+    {
+      //in ellipse
+      float sqrt_disc = sqrt(disc0);
+      float x1 = x_center + a0 * sqrt_disc;
+      float x2 = x_center - a0 * sqrt_disc;
+      drawFastHLine(x2, y, x1 - x2+1, color);
+    }
+  }
+}
+
 void draw_eyes_no_raster(int x, int y, int offset_second_eye)
 {
   //for demo purpose, draw without raster
-  tft.fillEllipse(x,y,eye_radius_x*0.9,eye_radius_y*0.9,RGB(1,3,86));
-  tft.fillEllipse(x,y,eye_radius_x*0.7,eye_radius_y*0.7,RGB(1,4,172));
-  tft.fillEllipse(x,y,eye_radius_x*0.5,eye_radius_y*0.5,RGB(1,178,226));
+  fillEllipse(x,y,eye_radius_x*0.9,eye_radius_y*0.9,RGB(1,3,86));
+  fillEllipse(x,y,eye_radius_x*0.7,eye_radius_y*0.7,RGB(1,4,172));
+  fillEllipse(x,y,eye_radius_x*0.5,eye_radius_y*0.5,RGB(1,178,226));
 
-  tft.fillEllipse(x+offset_second_eye,y,eye_radius_x*0.9,eye_radius_y*0.9,RGB(1,3,86));
-  tft.fillEllipse(x+offset_second_eye,y,eye_radius_x*0.7,eye_radius_y*0.7,RGB(1,4,172));
-  tft.fillEllipse(x+offset_second_eye,y,eye_radius_x*0.5,eye_radius_y*0.5,RGB(1,178,226));
+  fillEllipse(x+offset_second_eye,y,eye_radius_x*0.9,eye_radius_y*0.9,RGB(1,3,86));
+  fillEllipse(x+offset_second_eye,y,eye_radius_x*0.7,eye_radius_y*0.7,RGB(1,4,172));
+  fillEllipse(x+offset_second_eye,y,eye_radius_x*0.5,eye_radius_y*0.5,RGB(1,178,226));
   
 }
 
@@ -333,8 +362,10 @@ void setup() {
   tft.setTextColor(TFT_WHITE,TFT_BLACK);  tft.setTextSize(1);
   tft.fillScreen(ST7735_BLACK);
   tft.setCursor(0, 0, 2);
-  tft.println(F("Eyes animation demo"));
+  tft.println(F("Eyes animation demo."));
+  tft.println(F("Intellar.ca"));
   delay(2000);
+  tft.fillScreen(ST7735_BLACK);
   draw_image();
 }
 
@@ -369,13 +400,16 @@ void demo_raster(int max_iter)
     for(i=0;i<nb_ratio;i++)
     {
       eye_radius_y = eye_radius_y_ref*ratio[i];
-      tft.fillScreen(ST7735_BLACK);
+      //tft.fillScreen(ST7735_BLACK);
+      tft.fillScreen(ST7735_LIGHTGREY);
+
       draw_eyes_no_raster(eye_center_x-eye_pitch, 72,eye_pitch);
     }
     for(i=0;i<nb_ratio;i++)
     {
       eye_radius_y = eye_radius_y_ref*ratio[nb_ratio-i-1];
-      tft.fillScreen(ST7735_BLACK);
+      //tft.fillScreen(ST7735_BLACK);
+      tft.fillScreen(ST7735_LIGHTGREY);
       draw_eyes_no_raster(eye_center_x-eye_pitch, 72,eye_pitch);
     }    
 
@@ -386,7 +420,8 @@ void demo_raster(int max_iter)
   //tft.println("raster black background and ellipses");
   if(max_iter>1)
     delay(2000);
-  tft.fillScreen(ST7735_BLACK);
+  tft.fillScreen(ST7735_LIGHTGREY);
+  
   for(int iter=0;iter<max_iter;iter++)
   {
     
@@ -401,8 +436,7 @@ void demo_raster(int max_iter)
       drawFilledInscribedEllipse(        eye_center_x,72,0.9*eye_radius_x,0.9*eye_radius_y,1.0*eye_radius_x,  1.2*eye_radius_y,RGB(1,3, 86),RGB(0,0,0),false  );
       drawFilledInscribedEllipse(        eye_center_x,72,0.7*eye_radius_x,0.7*eye_radius_y,0.9*eye_radius_x,  0.9*eye_radius_y,RGB(1,4,172),RGB(1,3, 86),false );
       drawFilledInscribedEllipse(        eye_center_x,72,0.5*eye_radius_x,0.5*eye_radius_y,0.7*eye_radius_x,  0.7*eye_radius_y,RGB(1,178,226),RGB(1,4,172),true );
-
-
+      
     }
     for(i=0;i<nb_ratio;i++)
     {
@@ -423,7 +457,7 @@ void demo_raster(int max_iter)
   //tft.println("raster simultaneously");
   if(max_iter>1)
     delay(2000);
-  tft.fillScreen(ST7735_BLACK);
+  tft.fillScreen(ST7735_LIGHTGREY);
   for(int iter=0;iter<max_iter;iter++)
   {
     for(i=0;i<nb_ratio;i++)
