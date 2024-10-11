@@ -4,13 +4,40 @@
 //   https://www.intellar.ca/
 //    
 
-
-#include <TFT_ST7735.h> // Hardware-specific library  https://github.com/Bodmer/TFT_ST7735
 #include <SPI.h>
 #include <avr/pgmspace.h>
 #include "image.h"  
 
+//pin connection 
+//ST7735: Arduino
+//
+//LED   :  3v
+//SCK   :  d13
+//SDA   :  d11
+//A0    :  d7
+//RESET :  d8
+//CS    :  d9
+//GND   :  gnd
+//VCC   :  5v
+
+
+//make sure to edit user_setup of the library TFT_ST7735 to match this:
+#define TFT_DC    7
+#define TFT_RST   8 
+#define TFT_CS    9
+
+
+
+//faster than adafruit, manage all screen 128x160 area 
+#include <TFT_ST7735.h> // Hardware-specific library  https://github.com/Bodmer/TFT_ST7735
 TFT_ST7735 tft = TFT_ST7735();       // Invoke library
+
+
+//bad, leave unitialized and unreachable pixels  on the screen borders
+//#include <Adafruit_ST7735.h> //https://github.com/adafruit/Adafruit-ST7735-Library
+//Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS, TFT_DC, TFT_RST);
+
+
 
 #define RGB(r, g, b) (((r&0xF8)<<8)|((g&0xFC)<<3)|(b>>3))
 
@@ -355,13 +382,11 @@ void draw_image()
 }
 void setup() {
   tft.init();
-  tft.setRotation(1);
+  tft.setRotation(3);
   tft.fillScreen(ST7735_BLACK);
-
+  
   tft.setCursor(0, 0, 2);
   tft.setTextColor(TFT_WHITE,TFT_BLACK);  tft.setTextSize(1);
-  tft.fillScreen(ST7735_BLACK);
-  tft.setCursor(0, 0, 2);
   tft.println(F("Eyes animation demo."));
   tft.println(F("Intellar.ca"));
   delay(2000);
@@ -371,7 +396,6 @@ void setup() {
 
 void loop() {
   
-  
   demo_draw_eyes();
   
   //int max_iter=0;
@@ -379,7 +403,7 @@ void loop() {
   //demo_raster(max_iter=1); 
 }
 
-
+/*
 void demo_raster(int max_iter)
 {
   int index_ratio=0;
@@ -477,5 +501,5 @@ void demo_raster(int max_iter)
     }   
   }
 }
-
+*/
 
