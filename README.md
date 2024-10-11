@@ -13,7 +13,5 @@ Video of the animations:
 Visual description of the flicker problem
 https://www.youtube.com/shorts/WHQQOEp138Q
 
-
-
-![face](https://github.com/intellar/tft_face_display/blob/f287409c421dbf2ea01865defd61b36a1f526261/face1.png)
+![face](https://github.com/intellar/tft_face_display/blob/edcf03d50238068bfbe7845874c556efeec4790b/face1.png)
 
