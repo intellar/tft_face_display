@@ -12,7 +12,6 @@
 #include <avr/pgmspace.h>
 
 #include "img_rle.h"  
-#include "compression.h"
 #include "drawing_tools.h"
 
 #define SCR_WD   240

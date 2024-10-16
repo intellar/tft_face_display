@@ -13,15 +13,12 @@ Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 
 uint16_t rgb332_to_rgb565(uint8_t rgb332) {
     uint16_t rgb565;
-
     // Extract RGB components from the uint8 value
     uint8_t red = rgb332 & 0xE0; //11100000
     uint8_t green = rgb332 & 0x1C; //00011100
     uint8_t blue = rgb332 & 0x03; //00000011
-
     // Convert RGB components to RGB565 format
     rgb565 = ((red << 8) | (green << 6) | blue << 3);
-
     return rgb565;
 }
 
@@ -62,52 +59,32 @@ int draw_image_rle_conv(uint8_t* image_rle, uint32_t image_rle_length, int h, in
     count = pgm_read_byte(&image_rle[ind_rle]);
     val_b = pgm_read_byte(&image_rle[ind_rle+1]);
     if(val_b>255)
-      val_b = 255;
-    
-    
-    val = rgb332_to_rgb565(val_b);
-    
-    
-
-    /*for(int i=0;i<count;i++)
-    {
-      ind2sub(index_img,w,h,y,x);
-      tft.drawPixel(x,y,val);
-      index_img++;      
-    }*/
+      val_b = 255;  
+    val = rgb332_to_rgb565(val_b);    
     ind2sub(index_img,w,h,y,x);
     drawFastHLine(x,y,count,val);
     index_img+=count;
-    
-
   }
 
   return index_img;
   
 }
 
-
 int draw_image_rle(uint16_t* image_rle, int image_rle_length, int h, int w, int index_img)
 {
   uint16_t count = 0;
-  uint16_t val = 0;
-  
+  uint16_t val = 0;  
   int x=0;
   int y=0;
   for(int ind_rle=0;ind_rle<image_rle_length;ind_rle+=2)
   {
     count = pgm_read_word(&image_rle[ind_rle]);
-    val = pgm_read_word(&image_rle[ind_rle+1]);
-    
+    val = pgm_read_word(&image_rle[ind_rle+1]);    
     ind2sub(index_img,w,h,y,x);
     drawFastHLine(x,y,count,val);
-    index_img+=count;
-    
-
+    index_img+=count;  
   }
-
   return index_img;
-  
 }
 
 
