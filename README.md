@@ -4,7 +4,7 @@ Flicker free animated face using lcd display st7735 and st7789
 
 
 full description of the project on intellar.ca blog,  
-https://www.intellar.ca/blog/flicker-free-animated-eye-of-lcd-display
+https://www.intellar.ca/blog/animated-eyes-with-arduino-nano-on-color-lcd-display-flicker-free
 
 Video of the animations:
 
