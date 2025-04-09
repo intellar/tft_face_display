@@ -15,5 +15,7 @@ Video of the animations:
 Visual description of the flicker problem
 https://www.youtube.com/shorts/WHQQOEp138Q
 
+If you found this library useful for your project, please cite intellar.ca and considere giving it a star :star: 
+
 ![face](https://github.com/intellar/tft_face_display/blob/edcf03d50238068bfbe7845874c556efeec4790b/face1.png)
 
